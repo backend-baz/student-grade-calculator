@@ -1,6 +1,7 @@
 package ir.emadi.amir;
 
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class Main {
 
@@ -20,7 +21,24 @@ public class Main {
                     }
                 }
                 System.out.println();
+                System.out.print("Enter your grade, please: ");
+                var userGrade = scanner.nextLine();
+                double grade;
+                if (typeSystem.equals("1")) {
+                    grade = Double.parseDouble(userGrade);
+                    if (grade < 0 || grade > 20)
+                        throw new Exception("Enter a number between 0 to 20, please!");
+                    // IRAN - process...
+                } else {
+                    if (!isValidAmericanGrade(userGrade))
+                        throw new Exception("Enter a letter between 'A' to 'D' or 'F', please! (includes '+' or '-')");
+                    // USA - process ...
+                }
                 break;
+//                System.out.println("-".repeat(44));
+            } catch(NumberFormatException e) {
+                System.out.println("Error -> Invalid Input! Try again, please.");
+                System.out.println("-".repeat(44));
             } catch(Exception e) {
                 System.out.println("Error -> " + e.getMessage());
                 System.out.println("-".repeat(44));
@@ -33,6 +51,10 @@ public class Main {
         System.out.println("*".repeat(message.length()));
         System.out.println(message);
         System.out.println("*".repeat(message.length()) + "\n");
+    }
+
+    private static boolean isValidAmericanGrade(String grade) {
+        return Pattern.compile("^(?=[abcdfABCDF])[abcdfABCDF\\-+]{1,2}$").matcher(grade).find();
     }
 
 }
