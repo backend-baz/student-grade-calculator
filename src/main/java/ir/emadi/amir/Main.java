@@ -62,11 +62,11 @@ public class Main {
             }
         }
         scanner.close();
-        var result = calculateGPA(grades);
+        var result = calculateGPA(grades, false);
         if (typeSystem.equals("1")) {
             System.out.printf("Result: Your GPA (in Iran) is %.2f\n\n", result);
-            System.out.println("Note: Your GPA (in the USA) approximately is X");
-        } else System.out.printf("Result: Your GPA (in the USA) is %.2f", result);
+            System.out.printf("Note: Your GPA (in the USA) approximately is %.2f\n", calculateGPA(grades, true));
+        } else System.out.printf("Result: Your GPA (in the USA) is %.2f\n", result);
         printLines("=");
         System.out.println("\n\nBye!");
     }
@@ -110,13 +110,44 @@ public class Main {
         };
     }
 
-    private static double calculateGPA(ArrayList<HashMap<String, Double>> grades) {
+    private static double convertGradeToGPA(double grade) {
+        if (grade >= 18.5) {
+            return 4.3;
+        } else if (grade >= 17.5) {
+            return 4;
+        } else if (grade >= 16.5) {
+            return 3.7;
+        } else if (grade >= 15.5) {
+            return 3.3;
+        } else if (grade >= 14.5) {
+            return 3.0;
+        } else if (grade >= 13.5) {
+            return 2.7;
+        } else if (grade >= 12.5) {
+            return 2.3;
+        } else if (grade >= 11.5) {
+            return 2.0;
+        } else if (grade >= 10.5) {
+            return 1.7;
+        } else if (grade >= 9.5) {
+            return 1.3;
+        } else if (grade >= 8.5) {
+            return 1.0;
+        } else if (grade >= 7.5) {
+            return 0.7;
+        }
+        return 0;
+    }
+
+    private static double calculateGPA(ArrayList<HashMap<String, Double>> grades,
+                                       boolean equalsToUSA) {
         double sumCredits = 0;
         double sumGrades = 0;
         for (var item : grades) {
+            var grade = item.get("grade");
             var credit = item.get("credit");
             sumCredits += credit;
-            sumGrades += item.get("grade") * credit;
+            sumGrades += (equalsToUSA ? convertGradeToGPA(grade) : grade) * credit;
         }
         return sumGrades / sumCredits;
     }
