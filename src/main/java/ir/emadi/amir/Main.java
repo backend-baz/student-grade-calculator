@@ -28,11 +28,10 @@ public class Main {
                     grade = Double.parseDouble(userGrade);
                     if (grade < 0 || grade > 20)
                         throw new Exception("Enter a number between 0 to 20, please!");
-                    // IRAN - process...
                 } else {
                     if (!isValidAmericanGrade(userGrade))
                         throw new Exception("Enter a letter between 'A' to 'D' or 'F', please! (includes '+' or '-')");
-                    // USA - process ...
+                    grade = convertLetterToGPA(userGrade);
                 }
                 break;
 //                System.out.println("-".repeat(44));
@@ -55,6 +54,24 @@ public class Main {
 
     private static boolean isValidAmericanGrade(String grade) {
         return Pattern.compile("^(?=[abcdfABCDF])[abcdfABCDF\\-+]{1,2}$").matcher(grade).find();
+    }
+
+    private static double convertLetterToGPA(String letter) {
+        return switch (letter.toUpperCase()) {
+            case "A+" -> 4.3;
+            case "A" -> 4;
+            case "A-" -> 3.7;
+            case "B+" -> 3.3;
+            case "B" -> 3;
+            case "B-" -> 2.7;
+            case "C+" -> 2.3;
+            case "C" -> 2;
+            case "C-" -> 1.7;
+            case "D+" -> 1.3;
+            case "D" -> 1;
+            case "D-" -> 0.7;
+            default -> 0; // F
+        };
     }
 
 }

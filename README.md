@@ -25,8 +25,9 @@ Enter your grade, please: 15
 Enter its credit, please: 1
 Continue? y/n: n
 ============================================
--> Your GPA (in Iran) is xx.xx
--> Your GPA (in the USA) is x.xx (B+)
+Result: Your GPA (in Iran) is xx.xx
+
+Note: Your GPA (in the USA) approximately is x.xx
 ============================================
 
 Bye!
