@@ -33,14 +33,18 @@ public class Main {
                         throw new Exception("Enter a letter between 'A' to 'D' or 'F', please! (includes '+' or '-')");
                     grade = convertLetterToGPA(userGrade);
                 }
+                System.out.print("Enter its credit, please: ");
+                var credit = Double.parseDouble(scanner.nextLine());
+                if (credit <= 0 || credit > 10)
+                    throw new Exception("Enter a number between 0 to 10, please! (excluded 0)");
                 break;
-//                System.out.println("-".repeat(44));
+//                System.out.print("-".repeat(44));
             } catch(NumberFormatException e) {
                 System.out.println("Error -> Invalid Input! Try again, please.");
-                System.out.println("-".repeat(44));
+                System.out.print("-".repeat(44));
             } catch(Exception e) {
                 System.out.println("Error -> " + e.getMessage());
-                System.out.println("-".repeat(44));
+                System.out.print("-".repeat(44));
             }
         }
     }
