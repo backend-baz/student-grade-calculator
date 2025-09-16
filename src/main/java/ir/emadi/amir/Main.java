@@ -37,23 +37,40 @@ public class Main {
                 var credit = Double.parseDouble(scanner.nextLine());
                 if (credit <= 0 || credit > 10)
                     throw new Exception("Enter a number between 0 to 10, please! (excluded 0)");
+                System.out.print("Continue? y/n: ");
+                var userContinue = scanner.nextLine();
+                if (userContinue.equalsIgnoreCase("y")) {
+                    printLines();
+                    continue;
+                }
+                printLines("=");
+                // store data ...
                 break;
-//                System.out.print("-".repeat(44));
             } catch(NumberFormatException e) {
                 System.out.println("Error -> Invalid Input! Try again, please.");
-                System.out.print("-".repeat(44));
+                printLines();
             } catch(Exception e) {
                 System.out.println("Error -> " + e.getMessage());
-                System.out.print("-".repeat(44));
+                printLines();
             }
         }
     }
 
+    private static void printLines(String character) {
+        System.out.print(character.repeat(44));
+    }
+
+    private static void printLines() {
+        System.out.print("-".repeat(44));
+    }
+
     private static void welcomeMessage() {
         var message = "* Welcome to the Student Grade Calculator! *";
-        System.out.println("*".repeat(message.length()));
+        printLines("*");
+        System.out.println();
         System.out.println(message);
-        System.out.println("*".repeat(message.length()) + "\n");
+        printLines("*");
+        System.out.println("\n");
     }
 
     private static boolean isValidAmericanGrade(String grade) {
