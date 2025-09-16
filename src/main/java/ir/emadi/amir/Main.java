@@ -1,5 +1,8 @@
 package ir.emadi.amir;
 
+import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -9,6 +12,7 @@ public class Main {
         welcomeMessage();
         // '1' -> Iran, '2' -> USA and 'null' -> Unknown
         String typeSystem = null;
+        var grades = new ArrayList<HashMap<String, Double>>();
         var scanner = new Scanner(System.in);
         while (true) {
             try {
@@ -40,11 +44,14 @@ public class Main {
                 System.out.print("Continue? y/n: ");
                 var userContinue = scanner.nextLine();
                 if (userContinue.equalsIgnoreCase("y")) {
+                    var dic = new HashMap<String, Double>();
+                    dic.put("grade", grade);
+                    dic.put("credit", credit);
+                    grades.add(dic);
                     printLines();
                     continue;
                 }
                 printLines("=");
-                // store data ...
                 break;
             } catch(NumberFormatException e) {
                 System.out.println("Error -> Invalid Input! Try again, please.");
@@ -54,6 +61,7 @@ public class Main {
                 printLines();
             }
         }
+        scanner.close();
     }
 
     private static void printLines(String character) {
