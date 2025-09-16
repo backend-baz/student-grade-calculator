@@ -1,7 +1,6 @@
 package ir.emadi.amir;
 
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -43,15 +42,16 @@ public class Main {
                     throw new Exception("Enter a number between 0 to 10, please! (excluded 0)");
                 System.out.print("Continue? y/n: ");
                 var userContinue = scanner.nextLine();
+                var dic = new HashMap<String, Double>();
+                dic.put("grade", grade);
+                dic.put("credit", credit);
+                grades.add(dic);
                 if (userContinue.equalsIgnoreCase("y")) {
-                    var dic = new HashMap<String, Double>();
-                    dic.put("grade", grade);
-                    dic.put("credit", credit);
-                    grades.add(dic);
                     printLines();
                     continue;
                 }
                 printLines("=");
+                System.out.println();
                 break;
             } catch(NumberFormatException e) {
                 System.out.println("Error -> Invalid Input! Try again, please.");
@@ -62,6 +62,13 @@ public class Main {
             }
         }
         scanner.close();
+        var result = calculateGPA(grades);
+        if (typeSystem.equals("1")) {
+            System.out.printf("Result: Your GPA (in Iran) is %.2f\n\n", result);
+            System.out.println("Note: Your GPA (in the USA) approximately is X");
+        } else System.out.printf("Result: Your GPA (in the USA) is %.2f", result);
+        printLines("=");
+        System.out.println("\n\nBye!");
     }
 
     private static void printLines(String character) {
@@ -101,6 +108,17 @@ public class Main {
             case "D-" -> 0.7;
             default -> 0; // F
         };
+    }
+
+    private static double calculateGPA(ArrayList<HashMap<String, Double>> grades) {
+        double sumCredits = 0;
+        double sumGrades = 0;
+        for (var item : grades) {
+            var credit = item.get("credit");
+            sumCredits += credit;
+            sumGrades += item.get("grade") * credit;
+        }
+        return sumGrades / sumCredits;
     }
 
 }
